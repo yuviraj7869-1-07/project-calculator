@@ -1,0 +1,24 @@
+import ollama
+
+question = input("Enter a calculation: ")
+
+response = ollama. chat(
+    model="gemma3:1b",
+    messages=[{
+        "role": "user",
+        "content": f"""Convert this request into a mathematical expression only:
+{question}
+Return ONLY the expression."""
+}]
+
+)
+
+expression = response["message"]["content"].strip()
+print("Expression:", expression)
+
+try:
+    result = eval(expression)
+
+    print("Result:", result)
+except Exception:
+    print("Could not calculate this expression.")
